@@ -1,0 +1,8 @@
+.button {
+  display: flex;
+  align-items: center;
+}
+
+.button:active {
+  background-color: wheat;
+}

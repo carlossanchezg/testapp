@@ -1,0 +1,16 @@
+.button {
+  border-width: 0px;
+  cursor: pointer;
+}
+
+/* .button:hover {
+  background-color: rgb(225, 225, 225, 1);
+} */
+
+/* .bg {
+  background-image: url(../../assets/images/skbg.jpg);
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+} */

@@ -1,0 +1,15 @@
+.input {
+  background-color: #ececec;
+  border-radius: 10px;
+  border-width: 0px;
+  padding-left: 15px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  height: 15px;
+  width: 320px;
+}
+
+textarea:focus,
+input:focus {
+  outline: none;
+}

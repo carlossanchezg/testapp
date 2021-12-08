@@ -1,0 +1,73 @@
+{
+  "name": "skdesktop",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@craco/craco": "^6.2.0",
+    "@fortawesome/fontawesome-svg-core": "^1.2.36",
+    "@fortawesome/free-brands-svg-icons": "^5.15.4",
+    "@fortawesome/free-regular-svg-icons": "^5.15.4",
+    "@fortawesome/free-solid-svg-icons": "^5.15.4",
+    "@fortawesome/react-fontawesome": "^0.1.15",
+    "@szhsin/react-menu": "^2.2.0",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^11.2.7",
+    "@testing-library/user-event": "^12.8.3",
+    "axios": "^0.21.1",
+    "electron-squirrel-startup": "^1.0.0",
+    "electron-store": "^8.0.1",
+    "lodash": "^4.17.21",
+    "react": "^17.0.2",
+    "react-bootstrap-dropdown-menu": "^1.1.23",
+    "react-countdown-circle-timer": "^2.5.3",
+    "react-datepicker": "^4.3.0",
+    "react-dom": "^17.0.2",
+    "react-dropdown": "^1.9.2",
+    "react-modal": "^3.14.3",
+    "react-multi-select-component": "^4.1.13",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "4.0.3",
+    "react-search-autocomplete": "^5.4.2",
+    "react-switch": "^6.0.0",
+    "realm": "^10.6.1",
+    "sound-play": "^1.1.0",
+    "spinners-react": "^1.0.6",
+    "uuid": "^8.3.2"
+  },
+  "main": "public/electron.js",
+  "homepage": "./",
+  "scripts": {
+    "build": "craco build",
+    "start": "craco start",
+    "prod": "craco build && electron .",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "dev": "concurrently -k \"BROWSER=none npm start\" \"npm:electron\"",
+    "electron": "wait-on tcp:3000 && electron ."
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "concurrently": "^6.2.1",
+    "electron": "^13.4.0",
+    "electron-is-dev": "^2.0.0",
+    "wait-on": "^6.0.0",
+    "webpack-node-externals": "^3.0.0"
+  }
+}

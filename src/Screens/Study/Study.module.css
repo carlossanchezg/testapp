@@ -1,0 +1,17 @@
+.container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  /* background-color: aqua; */
+  height: 672px;
+  overflow-y: scroll;
+}
+.study_module_container {
+  display: flex;
+  justify-content: center;
+  height: 350px;
+  margin: 45px;
+  border-radius: 25px;
+}
+.backgroundFigure {
+  transform: rotate(-40deg);
+}
