@@ -1,4 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+
+import RealmContext from "../../contexts/RealmContext";
+
+import { isLoggedIn } from "../../services/realm";
 
 import AddButton from '../AddButton';
 import Button from '../Button';
@@ -20,6 +24,8 @@ import { Colors } from '../../styles';
 
 Modal.setAppElement('#root');
 const TasksFilters = () => {
+  const { realmApp, setRealmApp, realm, setRealm } = useContext(RealmContext);
+
   const [openModal, setOpenModal] = useState(false);
 
   const [userFilters, setUserFilters] = useState([]);
@@ -27,13 +33,12 @@ const TasksFilters = () => {
   const [filterName, setFilterName] = useState('');
 
   const handleGetUserFilters = async () => {
-    const GET_FILTER_URL = `http://localhost:3500/mydomain/users/60fb478bee70afa9fe3d485d/tasks/filters/all`;
-    try {
-      const filterRes = await axios.get(GET_FILTER_URL);
-      setUserFilters(filterRes.data.filters);
-      console.log('filters res', filterRes.data.filters);
-    } catch (error) {
-      console.log('ERR GET USER FILTERS', error);
+    if (realm && isLoggedIn(realmApp)) {
+      const filters = realm.objects("Filter");
+
+      setUserFilters(filters);
+
+      console.log(filters.map((item) => item));
     }
   };
 

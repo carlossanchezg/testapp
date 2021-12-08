@@ -42,8 +42,6 @@ const Routines = () => {
 
   const refreshRoutines = async () => {
     if (realm && isLoggedIn(realmApp)) {
-      const realm = await getRealm();
-
       const routines = realm.objects("Routine");
 
       setUserRoutines(routines);

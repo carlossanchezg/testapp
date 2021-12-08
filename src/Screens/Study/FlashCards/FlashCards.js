@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 
-import { isLoggedIn, getRealm } from "../../../services/realm";
+import RealmContext from "../../../contexts/RealmContext";
 
 import { ObjectId } from "bson";
 
@@ -28,6 +28,8 @@ Modal.setAppElement("#root");
 const FlashCards = () => {
   let { user, courseName, courseId } = useParams();
 
+  const { realmApp, setRealmApp, realm, setRealm } = useContext(RealmContext);
+
   const [courseColor, setCourseColor] = useState(0);
 
   const [openModal, setOpenModal] = useState(false);
@@ -54,8 +56,7 @@ const FlashCards = () => {
 
   const handleCreateNewFlashCard = async (e) => {
     e.preventDefault();
-    const realm = await getRealm();
-
+    
     try {
       realm.write(() => {
         const courseToAddFlashCard = realm.objectForPrimaryKey(
@@ -77,8 +78,7 @@ const FlashCards = () => {
   };
 
   const handleDeleteFlashCard = async (cardId) => {
-    const realm = await getRealm();
-
+    
     try {
       realm.write(() => {
         const coursefound = realm.objectForPrimaryKey(
@@ -115,8 +115,7 @@ const FlashCards = () => {
   };
 
   const handleEditFlashCard = async (cardId) => {
-    const realm = await getRealm();
-
+    
     const foundFlashCard = userFlashCards.find((item) => item.id === cardId);
 
     try {
@@ -133,8 +132,7 @@ const FlashCards = () => {
   };
 
   const refreshFlashCards = async (_) => {
-    const realm = await getRealm();
-    try {
+        try {
       realm.write(() => {
         const coursefound = realm.objectForPrimaryKey(
           "Course",

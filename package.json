@@ -2,6 +2,10 @@
   "name": "skdesktop",
   "version": "0.1.0",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/carlossanchezg/testapp.git"
+  },
   "dependencies": {
     "@craco/craco": "^6.2.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
@@ -32,6 +36,7 @@
     "realm": "^10.6.1",
     "sound-play": "^1.1.0",
     "spinners-react": "^1.0.6",
+    "update-electron-app": "^2.0.1",
     "uuid": "^8.3.2"
   },
   "main": "public/electron.js",

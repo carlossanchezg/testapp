@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 
 import RealmContext from "../../contexts/RealmContext";
 
-import { isLoggedIn, getRealm } from "../../services/realm";
+import { isLoggedIn } from "../../services/realm";
 
 import { ObjectId } from "bson";
 
@@ -47,8 +47,6 @@ const CoursesList = ({ goPage }) => {
 
   const refreshCourses = async () => {
     if (realm && isLoggedIn(realmApp)) {
-      const realm = await getRealm();
-
       const courses = realm.objects("Course");
 
       setUserCourses(courses);
@@ -87,8 +85,6 @@ const CoursesList = ({ goPage }) => {
   };
 
   const handleEditCourse = async (courseId) => {
-    const realm = await getRealm();
-
     try {
       realm.write(() => {
         const foundCourse = realm.objectForPrimaryKey("Course", courseId);

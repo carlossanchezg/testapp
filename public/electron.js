@@ -3,6 +3,7 @@ const Store = require('electron-store');
 const path = require('path');
 const { createNewWindow, getWindow } = require('./window');
 const Audio = require('sound-play');
+require('update-electron-app')()
 
 const { app, BrowserWindow, globalShortcut, Notification, ipcMain } = electron;
 

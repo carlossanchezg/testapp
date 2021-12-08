@@ -13,7 +13,7 @@ import styles from './Study.module.css';
 
 const Study = () => {
   return (
-    <Container navTitle="Study">
+    <Container navTitle="StudyEDITADO">
       <div className={styles.container}>
         <StudyModule
           color1="#E8207A"
