@@ -1,5 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
+
+import RealmContext from "../../contexts/RealmContext";
 
 import Container from "../../components/Container";
 import CustomModal from "../../components/Modal";
@@ -12,22 +15,29 @@ import { routinesColors } from "../../utils";
 import styles from "./Community.module.css";
 
 const Community = () => {
+  const { realmApp, setRealmApp, realm, setRealm } = useContext(RealmContext);
+
   const [openModal, setOpenModal] = useState(false);
 
   const [USERSTEST, setUSERSTEST] = useState([]);
   const [USEROVERGETTEST, setUSEROVERGETTEST] = useState(false);
 
+  const [allUsersPublicRoutines, setAllUsersPublicRoutines] = useState([]);
+  const [usersName, setUsersName] = useState([]);
+
   useEffect(() => {
     const getUsersTEST = async () => {
-      const GETUSERSTEST_URI = "https://randomuser.me/api/?results=80";
+      console.log('RELM QUERY');
       try {
-        const userRes = await axios.get(GETUSERSTEST_URI);
-        setUSERSTEST(userRes.data.results);
-        console.log("simon");
-        console.log(userRes.data.results);
-        return userRes;
+        const allUsersPublicRoutines_Res =
+          await realmApp.currentUser.functions.getUsersPublicRoutines();
+          console.log('RUTINAS___', allUsersPublicRoutines_Res.filter((item) => item.creator.id === item.userID))
+
+        setAllUsersPublicRoutines(allUsersPublicRoutines_Res.filter((item) => item.creator.id === item.userID));
+
+        setUsersName(allUsersPublicRoutines_Res);
       } catch (error) {
-        console.log("ERR GET USER", error);
+        console.log('ERROR ON GET ALL ROUTINES ', error);
       }
     };
     getUsersTEST();
@@ -35,8 +45,8 @@ const Community = () => {
 
   const arrTEST = [];
 
-  USERSTEST.map((item) =>
-    arrTEST.push({ id: item.login.uuid, name: item.login.username })
+  allUsersPublicRoutines.map((item) =>
+    arrTEST.push({ id: item.creator.id, name: item.creator.name })
   );
 
   console.log("arrTEST", arrTEST);
@@ -88,7 +98,7 @@ const Community = () => {
           />
         </div>
       </div>
-      {USERSTEST.length > 0 ? (
+      {allUsersPublicRoutines.length > 0 ? (
         <div
           style={
             {
@@ -97,13 +107,13 @@ const Community = () => {
           }
           className={styles.routines_container}
         >
-          {USERSTEST.map((item) => (
+          {allUsersPublicRoutines.map((item) => (
             <div
               style={{
                 background: `linear-gradient(${
-                  routinesColors[Number(String(item.dob.age).charAt(0))].color1
+                  routinesColors[item.colorPosition].color1
                 }, ${
-                  routinesColors[Number(String(item.dob.age).charAt(0))].color2
+                  routinesColors[item.colorPosition].color2
                 })`,
                 height: 220,
                 width: 315,
@@ -124,14 +134,19 @@ const Community = () => {
                   alignItems: "center",
                 }}
               >
-                <img
-                  src={item.picture.medium}
+                <div
                   style={{
                     borderRadius: 100,
                     width: 50,
                     height: 50,
-                  }}
-                />
+                    backgroundColor: item.creator.img,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+
+                  }}>
+                    <text style={{color: 'white'}}>{item.creator.name.charAt(0).toUpperCase()}</text>
+                  </div>
                 <div
                   style={{
                     display: "flex",
@@ -149,15 +164,15 @@ const Community = () => {
                       className={styles.routine_titles}
                       style={{ marginRight: 5 }}
                     >
-                      {item.name.first}
+                      {item.creator.name}
                     </text>
                     <text className={styles.routine_titles}>
-                      {item.name.last}
+                      {item.creator.name}
                     </text>
                   </div>
 
                   <text className={styles.routine_subtitles}>
-                    @{item.login.username}
+                    @{item.creator.name}
                   </text>
                 </div>
               </div>
@@ -222,7 +237,7 @@ const Community = () => {
           ))}
         </div>
       ) : (
-        <Spinner enable={USERSTEST.length === 0 ? true : false} />
+        <Spinner enable={allUsersPublicRoutines.length === 0 ? true : false} />
       )}
     </Container>
   );

@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 
 import RealmContext from "../../../contexts/RealmContext";
 
-import { isLoggedIn, getRealm } from "../../../services/realm";
+import { isLoggedIn } from "../../../services/realm";
 
 import { ObjectId } from "bson";
 
@@ -66,7 +66,7 @@ const Pomodoro = () => {
         open={openPomodoroModal}
         customHeight="420px"
         customTop="20%"
-        // overlayClick={(value) => setOpenPomodoroModal(value)}
+        overlayClick={(value) => {}}
         content={
           <div
             style={{
@@ -156,8 +156,6 @@ const Pomodoro = () => {
 
   const refreshPomdoros = async () => {
     if (realm && isLoggedIn(realmApp)) {
-      const realm = await getRealm();
-
       const pomodoros = realm.objects("Pomodoro");
 
       setUserPomodoros(pomodoros);

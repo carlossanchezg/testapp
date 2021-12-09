@@ -12,7 +12,11 @@ import Input from "../../components/Input";
 
 import { hourOptions } from "../../utils";
 
+import { useTranslation } from "react-i18next";
+
 const Settings = () => {
+  const [t, i18n] = useTranslation("global");
+
   const { realmApp, setRealmApp, realm, setRealm } = useContext(RealmContext);
 
   const [userName, setUserName] = useState(
@@ -51,7 +55,7 @@ const Settings = () => {
       setAuthLoading(true);
       realmApp.currentUser
         .logOut()
-        .then(async _ => {
+        .then(async (_) => {
           if (!isLoggedIn(realmApp)) {
             setRealmApp(getRealmApp());
             setRealm(await getRealm());
@@ -59,9 +63,28 @@ const Settings = () => {
           }
           setAuthLoading(false);
         })
-        .catch(err => console.error(err));
+        .catch((err) => console.error(err));
     }
   };
+
+  const languageOptions = [
+    {
+      label: "Español",
+      value: "es",
+    },
+    {
+      label: "Ingles",
+      value: "en",
+    },
+    {
+      label: "Portuges",
+      value: "po",
+    },
+    {
+      label: "Franses",
+      value: "fr",
+    },
+  ];
 
   return (
     <Container navTitle="Settings" padding={true}>
@@ -73,6 +96,22 @@ const Settings = () => {
           height: 605,
         }}
       >
+        <div>
+          <h2>{t("settings.languaje")}</h2>
+          <SettingsContainer
+            settingTitle="Change Languaje"
+            settingsDescription="Selecciona tu idioma preferido"
+            settingSwitch={false}
+            noSwitchRightContent={
+              <Dropdown
+                customDisable={false}
+                dropOptions={languageOptions}
+                dropValue={(value) => i18n.changeLanguage(value.value)}
+                dropPlace="Languaje"
+              />
+            }
+          />
+        </div>
         <div>
           <h2>Account</h2>
           <Input
@@ -87,7 +126,12 @@ const Settings = () => {
             inputValueFunction={(e) => {}}
             inputType="email"
           />
-          <h3 onClick={handleOut} style={{color: 'lightblue', cursor: 'pointer'}} >Logout</h3>
+          <h3
+            onClick={handleOut}
+            style={{ color: "lightblue", cursor: "pointer" }}
+          >
+            Logout
+          </h3>
         </div>
         <div>
           <h2>Tasks</h2>

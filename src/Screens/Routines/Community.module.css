@@ -20,7 +20,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   overflow-y: scroll;
-  height: 620px;
+  height: 600px;
 }
 
 .routine {
